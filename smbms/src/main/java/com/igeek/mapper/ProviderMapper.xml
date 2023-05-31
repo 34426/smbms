@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.igeek.mapper.ProviderMapper">
+    <insert id="insertProvider">
+        insert into smbms_provider(id,proCode,proName,proDesc,proContact,proPhone,proAddress,proFax,createdBy,creationDate)
+        values(null,#{proCode},#{proName},#{proDesc},#{proContact},#{proPhone},#{proAddress},#{proFax},#{createdBy},#{creationDate});
+    </insert>
+    <update id="updateProvider">
+        update smbms_provider set proCode=#{proCode},proName =#{proName},proDesc=#{proDesc},proContact=#{proContact},
+                                proPhone=#{proPhone},proAddress = #{proAddress},proFax=#{proFax},modifyDate=#{modifyDate},
+                                modifyBy=#{modifyBy}
+        where id = #{id};
+    </update>
+    <delete id="deleteById">
+        delete from smbms_provider where id =#{id};
+    </delete>
+
+    <select id="findById" resultType="com.igeek.pojo.Provider">
+        select * from smbms_provider where id = #{id};
+    </select>
+
+    <select id="findByCodeAndName" resultType="com.igeek.pojo.Provider">
+        select * from smbms_provider
+        <where>
+            <if test="proCode != null">
+                and proCode like "%"#{proCode}"%"
+            </if>
+            <if test="proName != null">
+                and proName like "%"#{proName}"%"
+            </if>
+        </where>
+    </select>
+    <select id="findAll" resultType="com.igeek.pojo.Provider">
+        select * from smbms_provider;
+    </select>
+
+</mapper>
